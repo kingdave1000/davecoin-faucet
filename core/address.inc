@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Core of address management for instant litecoin wallet
+ * Core of address management for instant davecoin wallet
  *
  * @author Someguy123 AKA Derpz0r
  * @copyright 2011

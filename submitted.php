@@ -33,16 +33,16 @@ function ordinal($a)
 }
 if (strtolower(ValidateCaptcha($adscaptchaID, $adsprivkey, $challengeValue, $responseValue,
     $remoteAddress)) == "true") {
-    $isvalid = $btclient->validateaddress($_POST['LTC']);
+    $isvalid = $btclient->validateaddress($_POST['DVK']);
     if ($isvalid['isvalid'] != '1') {
 
-        echo "Invalid Address: {$_POST['LTC']}";
+        echo "Invalid Address: {$_POST['DVK']}";
         echo "</center></div>";
         include ('templates/sidebar.php');
         include ('templates/footer.php');
         die();
     } else {
-    $ltcaddress = $_POST['LTC'];
+    $ltcaddress = $_POST['DVK'];
             mysql_query("INSERT INTO dailyltc (ltcaddress, ip)
     SELECT * FROM (SELECT '$ltcaddress', '$ip') AS tmp
     WHERE NOT EXISTS (
@@ -89,7 +89,7 @@ if (strtolower(ValidateCaptcha($adscaptchaID, $adsprivkey, $challengeValue, $res
 
             //echo "printed.";
             // echo "</table>";
-            echo "You will get your LTC at the end of this round<br />There are $rows submitted addresses in this round!<br>";
+            echo "You will get your DVK at the end of this round<br />There are $rows submitted addresses in this round!<br>";
             echo "<br>If you want to donate to the Faucet: $donaddress (recv: $don)";
         }
     

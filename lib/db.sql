@@ -1,4 +1,4 @@
-CREATE TABLE `litecoin`.`instaltc` (
+CREATE TABLE `davecoin`.`instaltc` (
 `id` INT( 5 ) NOT NULL AUTO_INCREMENT ,
 `ltcaddress` CHAR( 34 ) NOT NULL ,
 `salt` CHAR( 10 ) NOT NULL ,

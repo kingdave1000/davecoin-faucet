@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <title>Litecoin Faucet</title>
     <meta name="description" content="Litecoin Faucet">
-    <meta name="Greedi" content="LTC">
+    <meta name="Greedi" content="DVK">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
