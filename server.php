@@ -78,7 +78,7 @@ if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") {
 <?
     echo '
             <div style="margin-right: 20px;">
-            <h3>Litecoind statistics</h3>
+            <h3>Davecoind statistics</h3>
             <table class=\'zebra-striped\'>
             <tr><td>Server balance total: </td><td>' . $derp['balance'] .
         ' DVK</td></tr>

@@ -6,8 +6,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Litecoin Faucet</title>
-    <meta name="description" content="Litecoin Faucet">
+    <title>Davecoin Faucet</title>
+    <meta name="description" content="Davecoin Faucet">
     <meta name="Greedi" content="DVK">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

@@ -13,7 +13,7 @@ class Address
   public $sqlogin; // Login information and database information
   public $PDO_Conn; // PDO Connection
   public $genaddr; // Generated address
-  public $ltc; // Litecoin server connection
+  public $ltc; // Davecoin server connection
   public $secret; // A salt we add for a nice secure URL
   public $securl; // Output URL string
   public $prepd;

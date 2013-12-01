@@ -11,7 +11,7 @@ include ('core/daily.php');
 <?
 echo '
             <div style="margin-right: 20px;">
-            <h3><center>Litecoin statistics</center></h3>
+            <h3><center>Davecoin statistics</center></h3>
             <table class=\'zebra-striped\'>
             <tr><td>Block count: </td><td>' . number_format($derp['blocks']) .
     '</td></tr>
