@@ -21,7 +21,7 @@ function timer () {
 
 function checkExistingIP($ip)
 {
-    $q = mysql_query("SELECT `ip` FROM `dailyltc` WHERE `ip`='{$ip}' LIMIT 1");
+    $q = mysql_query("SELECT `ip` FROM `dailydvk` WHERE `ip`='{$ip}' LIMIT 1");
     $rows = mysql_num_rows($q);
     return $rows;
 }

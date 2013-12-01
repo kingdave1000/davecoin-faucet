@@ -1,12 +1,12 @@
 <?
-$command = "SELECT * FROM roundltc,dailytotal,round";
+$command = "SELECT * FROM rounddvk,dailytotal,round";
 $q = mysql_query($command);
-$dltc = mysql_query("SELECT * FROM `dailyltc`");
+$ddvk = mysql_query("SELECT * FROM `dailydvk`");
 $rows = mysql_num_rows($q);
-$rows2 = mysql_num_rows($dltc);
+$rows2 = mysql_num_rows($ddvk);
 $i = 0;
 while ($i < $rows) {
-    $roundltc = mysql_result($q, $i, "roundltc");
+    $rounddvk = mysql_result($q, $i, "rounddvk");
     $dailytotal = mysql_result($q, $i, "dailytotal");
     $round = mysql_result($q, $i, "round");
     $i++;

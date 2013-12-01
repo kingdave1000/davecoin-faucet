@@ -13,13 +13,13 @@ class Address
   public $sqlogin; // Login information and database information
   public $PDO_Conn; // PDO Connection
   public $genaddr; // Generated address
-  public $ltc; // Davecoin server connection
+  public $dvk; // Davecoin server connection
   public $secret; // A salt we add for a nice secure URL
   public $securl; // Output URL string
   public $prepd;
 
   function __construct($btcclient, $sqllogin) {
-    $this->ltc = $btcclient;
+    $this->dvk = $btcclient;
 
     try
     {
@@ -33,7 +33,7 @@ class Address
   }
   function verKey($key)
   {
-    $prepkey = $this->PDO_Conn->prepare('SELECT ltcaddress FROM instaltc WHERE url=?');
+    $prepkey = $this->PDO_Conn->prepare('SELECT dvkaddress FROM instadvk WHERE url=?');
     if ($key)
     {
       $prepkey->execute(array($key));
@@ -41,7 +41,7 @@ class Address
       {
         case 1:
           $b = $prepkey->fetchAll();
-          return $b[0]['ltcaddress'];
+          return $b[0]['dvkaddress'];
           break;
         case 0:
           return false;
@@ -55,11 +55,11 @@ class Address
   function newAddr()
   {
     $this->securl = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,20); // Generate salt (20 chars))
-    $this->genaddr = $this->ltc->getaccountaddress($this->securl); // Generate a new address and shove it in a variable
+    $this->genaddr = $this->dvk->getaccountaddress($this->securl); // Generate a new address and shove it in a variable
     // $this->securl = hash('sha512', $this->secret . $this->genaddr . $this->secret);
     try
     {
-      $prepd = $this->PDO_Conn->prepare('INSERT INTO instaltc (ltcaddress, url) VALUES (?, ?)'); // Prepare PDO query
+      $prepd = $this->PDO_Conn->prepare('INSERT INTO instadvk (dvkaddress, url) VALUES (?, ?)'); // Prepare PDO query
       $prepd->execute(array($this->genaddr, $this->securl));
       return $this->genaddr;
     }
@@ -69,20 +69,20 @@ class Address
     }
   }
 
-  function sanitizedSend($to_address, $ltcaddr, $key, $amount, $minleft = 0.1, $minfee = 0, $feeperc = 2.5, $feeacc = "Fees")
+  function sanitizedSend($to_address, $dvkaddr, $key, $amount, $minleft = 0.1, $minfee = 0, $feeperc = 2.5, $feeacc = "Fees")
   {
     if (filter_var($amount, FILTER_VALIDATE_FLOAT))
     {
 
-      $balance = $this->ltc->getbalance("$key");
+      $balance = $this->dvk->getbalance("$key");
       if($balance - $amount - $minleft <= 0) { throw new Exception('LOW_BALANCE'); }
 
-      $valid = $this->ltc->validateaddress($to_address);
+      $valid = $this->dvk->validateaddress($to_address);
       if ($valid['isvalid'] == true)
       {
         try
         { // Can we send it?
-          $this->ltc->sendfrom($key, $to_address, $amount);
+          $this->dvk->sendfrom($key, $to_address, $amount);
           return array(   'address' => $to_address,
           'account' => $key,
           'amount' => $amount);
@@ -90,20 +90,20 @@ class Address
         catch (BitcoinClientException $e)
         {
           throw new Exception("SEND_FAILED");
-          $btclog = fopen("ltcerror.txt", a);
-          fwrite($btclog, "[ {$ltcaddr} ] - " . $e . "\r\n");
+          $btclog = fopen("dvkerror.txt", a);
+          fwrite($btclog, "[ {$dvkaddr} ] - " . $e . "\r\n");
         }
       } else
       {
         throw new Exception("INVALID_ADDR");
-        $btclog = fopen("ltcerror.txt", 'a');
-        fwrite($btclog, "[ {$ltcaddr} ] ENTERED {$to_address}] - INVALID ADDRESS\r\n");
+        $btclog = fopen("dvkerror.txt", 'a');
+        fwrite($btclog, "[ {$dvkaddr} ] ENTERED {$to_address}] - INVALID ADDRESS\r\n");
       }
     } else
     {
       throw new Exception("INVALID_AMT");
-      $btclog = fopen("ltcerror.txt", 'a');
-      fwrite($btclog, "[ {$ltcaddr} ] ENTERED {$amount}] - INVALID AMOUNT\r\n");
+      $btclog = fopen("dvkerror.txt", 'a');
+      fwrite($btclog, "[ {$dvkaddr} ] ENTERED {$amount}] - INVALID AMOUNT\r\n");
     }
   }
 }

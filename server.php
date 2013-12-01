@@ -19,17 +19,17 @@ if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") {
     echo '<div class="alert-message error" data-alert="alert" style="margin-right: 20px;"><a class="close" onclick="\$().alert()" href="#">&times</a><p>Access Denied.</p></div>';
 } else {
     $finishing_divs = "</div></div>";
-    $command = "SELECT * FROM roundltc,dailytotal,round";
+    $command = "SELECT * FROM rounddvk,dailytotal,round";
     $q = mysql_query($command);
-    $dltc = mysql_query("SELECT * FROM `dailyltc`");
+    $ddvk = mysql_query("SELECT * FROM `dailydvk`");
     $rows = mysql_num_rows($q);
-    $rows2 = mysql_num_rows($dltc);
+    $rows2 = mysql_num_rows($ddvk);
     $subcommand = "SELECT * FROM subtotal";
     $subq = mysql_query($subcommand);
     $subrows = mysql_num_rows($subq);
     $i = 0;
     while ($i < $rows) {
-        $roundltc = mysql_result($q, $i, "roundltc");
+        $rounddvk = mysql_result($q, $i, "rounddvk");
         $dailytotal = mysql_result($q, $i, "dailytotal");
         $round = mysql_result($q, $i, "round");
         $i++;
@@ -41,7 +41,7 @@ if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") {
             <table class=\'zebra-striped\'>
             <tr><td>Submitted This Round: </td><td>' . $rows2 . '</td></tr>
             <tr><td>Current Round: </td><td>' . $round . '</td></tr>
-            <tr><td>Payout This Round: </td><td>' . $roundltc . ' DVK</td></tr>
+            <tr><td>Payout This Round: </td><td>' . $rounddvk . ' DVK</td></tr>
             <tr><td>Total Payout: </td><td>' . $dailytotal . ' DVK</td></tr>
             <tr><td>Total Submitted: </td><td>' . $subrows . '</td></tr> 
             <tr><td>Donate: </td><td>' . $btclient->getbalance($don_faucet, 0) .
@@ -55,9 +55,9 @@ if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") {
             <div style="margin-right: 20px;">
             <h3>Daily settings</h3>
             <table class=\'zebra-striped\'>
-    <form action="update/updateroundltc" method="post">
+    <form action="update/updaterounddvk" method="post">
     <input type="hidden" name="ud_id" value="">
-    Round Price: <input type="text" name="roundltc" value="">
+    Round Price: <input type="text" name="rounddvk" value="">
     <input type="Submit" value="Update">
     </form></table>
     <form action="update/updatetotal" method="post">
@@ -153,24 +153,24 @@ if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") {
 <center><table border="0" cellspacing="2" cellpadding="2">
 <tr>
 <th><font face="Arial, Helvetica, sans-serif">ID</font></th>
-<th><font face="Arial, Helvetica, sans-serif"><center>ltcaddres</center></font></th>
+<th><font face="Arial, Helvetica, sans-serif"><center>dvkaddres</center></font></th>
 <th><font face="Arial, Helvetica, sans-serif"><center>IP</center></font></th>
 </tr>
 
 <?
     $i = 0;
     while ($i < $rows2) {
-        $qltc = "SELECT * FROM dailyltc";
-        $herp = mysql_query($qltc);
+        $qdvk = "SELECT * FROM dailydvk";
+        $herp = mysql_query($qdvk);
         $rows3 = mysql_num_rows($herp);
         $id = mysql_result($herp, $i, "id");
-        $ltcaddres = mysql_result($herp, $i, "ltcaddress");
+        $dvkaddres = mysql_result($herp, $i, "dvkaddress");
         $ip = mysql_result($herp, $i, "ip");
 ?>
 
 <tr>
 <td><font face="Arial, Helvetica, sans-serif"><? echo $id; ?></font></td>
-<td><font face="Arial, Helvetica, sans-serif"><center><? echo $ltcaddres; ?></center></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><center><? echo $dvkaddres; ?></center></font></td>
 <td><font face="Arial, Helvetica, sans-serif"><center><? echo $ip; ?></center></font></td>
 </tr>
 

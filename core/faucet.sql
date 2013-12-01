@@ -22,18 +22,18 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dailyltc`
+-- Table structure for table `dailydvk`
 --
 
-CREATE TABLE IF NOT EXISTS `dailyltc` (
+CREATE TABLE IF NOT EXISTS `dailydvk` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `ltcaddress` char(34) NOT NULL,
+  `dvkaddress` char(34) NOT NULL,
   `ip` char(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `dailyltc`
+-- Dumping data for table `dailydvk`
 --
 
 
@@ -74,18 +74,18 @@ INSERT INTO `round` (`round`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roundltc`
+-- Table structure for table `rounddvk`
 --
 
-CREATE TABLE IF NOT EXISTS `roundltc` (
-  `roundltc` char(34) NOT NULL
+CREATE TABLE IF NOT EXISTS `rounddvk` (
+  `rounddvk` char(34) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roundltc`
+-- Dumping data for table `rounddvk`
 --
 
-INSERT INTO `roundltc` (`roundltc`) VALUES
+INSERT INTO `rounddvk` (`rounddvk`) VALUES
 ('0');
 
 -- --------------------------------------------------------
@@ -96,7 +96,7 @@ INSERT INTO `roundltc` (`roundltc`) VALUES
 
 CREATE TABLE IF NOT EXISTS `subtotal` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `ltcaddress` char(34) NOT NULL,
+  `dvkaddress` char(34) NOT NULL,
   `ip` char(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

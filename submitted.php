@@ -42,35 +42,35 @@ if (strtolower(ValidateCaptcha($adscaptchaID, $adsprivkey, $challengeValue, $res
         include ('templates/footer.php');
         die();
     } else {
-    $ltcaddress = $_POST['DVK'];
-            mysql_query("INSERT INTO dailyltc (ltcaddress, ip)
-    SELECT * FROM (SELECT '$ltcaddress', '$ip') AS tmp
+    $dvkaddress = $_POST['DVK'];
+            mysql_query("INSERT INTO dailydvk (dvkaddress, ip)
+    SELECT * FROM (SELECT '$dvkaddress', '$ip') AS tmp
     WHERE NOT EXISTS (
-    SELECT ip FROM dailyltc WHERE ip = '$ip'
+    SELECT ip FROM dailydvk WHERE ip = '$ip'
     ) LIMIT 1;") or die(mysql_error());
 
-            mysql_query("INSERT INTO subtotal (ltcaddress, ip) VALUES('$ltcaddress', '$ip' ) ") or
+            mysql_query("INSERT INTO subtotal (dvkaddress, ip) VALUES('$dvkaddress', '$ip' ) ") or
                 die(mysql_error());
-            $command = "SELECT * FROM dailyltc";
+            $command = "SELECT * FROM dailydvk";
             $q = mysql_query($command);
             $rows = mysql_num_rows($q);
             $entries_needed = 150;
             if ($rows > $entries_needed) {
-                $command = "SELECT * FROM roundltc";
+                $command = "SELECT * FROM rounddvk";
                 $q = mysql_query($command);
                 $res = mysql_fetch_array($q);
-                $list = mysql_query("SELECT * FROM dailyltc");
+                $list = mysql_query("SELECT * FROM dailydvk");
 
                 $coins_in_account = $btclient->getbalance("SendOut", 0);
-                if ($coins_in_account >= ($res['roundltc'] * $rows)) {
+                if ($coins_in_account >= ($res['rounddvk'] * $rows)) {
                     while ($listw = mysql_fetch_array($list)) {
-                        $btclient->sendfrom("SendOut", $listw['btcaddres'], $res['roundltc']);
+                        $btclient->sendfrom("SendOut", $listw['btcaddres'], $res['rounddvk']);
                     }
                     $n = ordinal(mysql_num_rows($list));
                     echo srsnot("Congratulations, you were the {$n} in the round, the round has been reset and payouts have been sent.");
-                    mysql_query("TRUNCATE dailyltc");
+                    mysql_query("TRUNCATE dailydvk");
                     mysql_query("UPDATE round set round=round+1");
-                    $totalc = $res['roundltc'] * $rows;
+                    $totalc = $res['rounddvk'] * $rows;
                     mysql_query("UPDATE dailytotal set total=total+{$totalc}");
                     echo "</center></div>";
                     include ('templates/sidebar.php');
